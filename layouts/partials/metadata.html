@@ -1,0 +1,25 @@
+{{- if not .Date.IsZero -}}
+    {{ $dateTime := .PublishDate.Format "2006-01-02" }} {{ $dateFormat :=
+        .Site.Params.dateFormat | default "Monday 2 Jan, 2006" }}
+        <i class="far fa-calendar-alt"></i>
+        <time datetime="{{ $dateTime }}">{{ .PublishDate.Format $dateFormat }}</time>
+{{- end }}
+
+{{- if (.Param "ShowReadingTime") -}}
+    .
+    <i class="far fa-clock"></i>
+    {{ .ReadingTime }} minute{{ if (ne .ReadingTime 1) }}s{{ end }}
+{{- end }}
+
+{{- if (.Param "ShowWordCount") -}}
+    .
+    <i class="fas fa-pencil-alt fa-fw"></i>
+    {{ .WordCount }} words
+{{- end }}
+
+{{- if or .Params.author site.Params.author }}
+    .
+    <i class="far fa-user"></i>
+    {{- $author := (.Params.author | default site.Params.author) }}
+    {{- $author }}
+{{- end }}

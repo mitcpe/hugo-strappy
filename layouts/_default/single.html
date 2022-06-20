@@ -1,0 +1,29 @@
+{{ define "main" }}
+  {{- partial "breadcrumbs.html" . }}
+  <h1>{{ .Title }}</h1>
+  <img
+    class="rounded w-50 mx-auto d-block"
+    src="{{ .Params.cover.image }}"
+    alt="{{ .Params.cover.alt }}"/>
+  <p class="text-center">{{ .Params.cover.caption }}</p>
+
+  <div class="row text-center">
+    <div class="col">
+      {{- partial "metadata.html" . }}
+    </div>    
+  </div>
+  <br />
+  {{ .Content }}  
+  <br />
+  
+  {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
+  <div class="row">
+    <div class="col-auto">
+        Tags: {{range ($.GetTerms $tags) }}
+        <a class="badge rounded-pill bg-success nav-link" href="{{.Permalink}}">{{.Title}}</a>&nbsp;
+        {{ end }}
+    </div>
+  </div>
+  <br />
+  {{- partial "disqus.html" . -}}
+{{ end }}

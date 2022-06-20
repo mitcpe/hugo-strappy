@@ -1,0 +1,53 @@
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {{- if hugo.IsProduction | or (eq site.Params.env "production") | and (ne .Params.robotsNoIndex true) }}
+        <meta name="robots" content="index, follow">
+    {{- else }}
+        <meta name="robots" content="noindex, nofollow">
+    {{- end }}
+    
+    <!-- Generator -->
+    {{- hugo.Generator -}}
+
+    <!-- Bootstrap CSS -->
+    {{ $bootstrap := resources.Get "/css/bootstrap.min.css" }}
+    <link rel="stylesheet" href="{{ $bootstrap.Permalink }}" as="style" />
+
+    <!-- Fontawsome icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />  
+ 
+    <!-- Customer CSS --> 
+    {{ $style := resources.Get "/css/style.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}" as="style" />
+
+    <!-- Title -->
+    <title>{{ if .IsHome }}{{ else }}{{ if .Title }}{{ .Title }} | {{ end }}{{ end }}{{ site.Title }}</title>
+
+    {{- /* Meta */}}
+    {{- if .IsHome }}
+        {{ with site.Params.keywords -}}<meta name="keywords" content="{{- range $i, $e := . }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">{{ end }}
+    {{- else }}
+        <meta name="keywords" content="{{ if .Params.keywords -}}
+            {{- range $i, $e := .Params.keywords }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- else }}
+            {{- range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- end -}}">
+    {{- end }}
+    <meta name="description" content="{{- with .Description }}{{ . }}{{- else }}{{- if or .IsPage .IsSection}}
+        {{- .Summary | default (printf "%s - %s" .Title  site.Title) }}{{- else }}
+        {{- with site.Params.description }}{{ . }}{{- end }}{{- end }}{{- end -}}">
+    
+    <!-- Google Snippet (Review) -->
+
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{- .Site.Params.favicon | default "favicon.ico" |
+  absURL -}}" sizes="256x256"> 
+    
+  {{- partial "seo.html" . -}}
+</head>
