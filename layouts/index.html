@@ -47,19 +47,6 @@
     </section>
   {{ end }}
 
-  <!-- Heading -->
-  {{ $subheading := .Site.Params.subheading }}
-  {{ if $subheading }}
-    <section class="py-5 bg-primary">
-      <div class="p-5 mb-4 rounded-3">
-        <div class="container-fluid text-white text-center">
-          <h1>{{ .Site.Params.myHeading }}</h1>
-          <p>{{ .Site.Params.mySubHeading }}</p>
-        </div>
-      </div>
-    </section>
-  {{ end }}
-
   <!-- Our Values -->
   {{ $ourvalues := .Site.Params.ourvalues }}
   {{ if $ourvalues }}
