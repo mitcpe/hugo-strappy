@@ -1,0 +1,19 @@
+{{- if .Site.Params.widgets.recent }}
+    {{- $recent := where .Site.RegularPages "Type" "in" .Site.Params.mainSections }}
+    {{- $recent_num := (.Site.Params.widgets.recent_num | default 10) }}
+
+    {{- if $recent }}
+        <div class="panel panel-default sidebar-menu">
+            <div class="panel-heading">
+                <h5 class="panel-title">{{ i18n "recentTitle" }}</h5>
+            </div>
+            <div class="panel-body">
+	            <ul class="nav-stacked">
+			        {{- range first $recent_num $recent }}
+			            <li class="widget__item"><a class="widget__link" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+			        {{- end }}
+		        </ul>
+	        </div>
+        </div>
+    {{- end }}
+{{- end }}

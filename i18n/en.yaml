@@ -46,6 +46,9 @@
 - id: tagsTitle
   translation: "Tags"
 
+- id: recentTitle
+  translation: "Recent Posts"
+
 - id: continueReading
   translation: "Continue reading"
 

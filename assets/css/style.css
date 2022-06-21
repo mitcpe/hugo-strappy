@@ -230,7 +230,7 @@ section {
 }
 .panel.sidebar-menu .panel-body label {
   color: #999999;
-  font-size: 12px;
+  font-size: 10px;
 }
 .panel.sidebar-menu .panel-body label:hover {
   color: #555555;
@@ -371,4 +371,43 @@ section {
 .panel-primary .panel-title a:hover {
   color: #fff;
   text-decoration: none;
+}
+
+/* Widgets */
+.widget {
+	margin-bottom: 25px;
+	overflow: hidden;
+}
+
+.widget:last-child {
+	margin-bottom: 0;
+}
+
+.widget__title {
+	position: relative;
+	padding-bottom: 5px;
+	font-size: 11px;
+	font-size: 1rem;
+	text-transform: uppercase;
+	border-bottom: 3px solid #e22d30;
+}
+
+.widget__item {
+	display: block;
+	padding: 5px 0;
+	border-bottom: 1px dotted #ebebeb;
+}
+
+.widget__item:first-child {
+	padding-top: 0;
+}
+
+.widget__counter--bubble {
+	display: inline-block;
+	padding: 0 6px;
+	font-size: .75rem;
+	color: #666;
+	text-align: center;
+	background: #ebebeb;
+	border-radius: 2em;
 }
