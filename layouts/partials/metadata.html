@@ -1,25 +1,25 @@
 {{- if not .Date.IsZero -}}
     {{ $dateTime := .PublishDate.Format "2006-01-02" }} {{ $dateFormat :=
         .Site.Params.dateFormat | default "Monday 2 Jan, 2006" }}
-        <i class="far fa-calendar-alt"></i>
+        {{ partial "fontawesome.html" (dict "icon" "calendar" "class" "inline-svg") }}
         <time datetime="{{ $dateTime }}">{{ .PublishDate.Format $dateFormat }}</time>
 {{- end }}
 
 {{- if (.Param "ShowReadingTime") -}}
     .
-    <i class="far fa-clock"></i>
+    {{ partial "fontawesome.html" (dict "icon" "clock" "class" "inline-svg") }}
     {{ .ReadingTime }} minute{{ if (ne .ReadingTime 1) }}s{{ end }}
 {{- end }}
 
 {{- if (.Param "ShowWordCount") -}}
     .
-    <i class="fas fa-pencil-alt fa-fw"></i>
+    {{ partial "fontawesome.html" (dict "icon" "pencil" "class" "inline-svg") }}
     {{ .WordCount }} words
 {{- end }}
 
 {{- if or .Params.author site.Params.author }}
     .
-    <i class="far fa-user"></i>
+    {{ partial "fontawesome.html" (dict "icon" "user" "class" "inline-svg") }}
     {{- $author := (.Params.author | default site.Params.author) }}
     {{- $author }}
 {{- end }}

@@ -32,7 +32,7 @@
             {{ $title := print .Title | safeHTML }}
             <a class="nav-link" title="{{ $title }}" href="{{ .URL }}">
                 {{ $text := print .Name | safeHTML }}
-                <i class="{{ $text }}"></i>
+                {{ partial "fontawesome.html" (dict "icon" $text "class" "inline-svg-x2 link-primary") }}
             </a>
             {{ end }}
         </div>
@@ -44,14 +44,10 @@
 <!-- Heading -->
 {{ $subheading := .Site.Params.subheading }}
 {{ if $subheading }}
-    <section class="py-5 bg-primary">
-        <div class="p-5 mb-4 rounded-3">
-            <div class="container-fluid text-white text-center">
-                <h1>{{ .Site.Params.myHeading }}</h1>
-                <p>{{ .Site.Params.mySubHeading }}</p>
-            </div>
-        </div>
-    </section>
+    <div class="container-fluid py-2 bg-warning text-center">
+        <h1>{{ .Site.Params.myHeading }}</h1>
+        <p>{{ .Site.Params.mySubHeading }}</p>
+    </div>
 {{ end }}
   
   

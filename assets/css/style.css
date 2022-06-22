@@ -8,6 +8,32 @@ section {
     object-position: 50% 50%;
   }
 
+  .inline-svg {
+    display: inline-block;
+    height: 0.8rem;
+    width: 0.8rem;
+    bottom: 0.1rem;
+    position: relative;
+  }
+  
+  .inline-svg-x2 {
+    display: inline-block;
+    height: 1.6rem;
+    width: 1.6rem;
+    bottom: 0.1rem;
+    position: relative;
+    color: link-primary;
+  }
+  
+  .inline-svg-x4 {
+    display: inline-block;
+    height: 3.2rem;
+    width: 3.2rem;
+    bottom: 0.1rem;
+    position: relative;
+  }
+  
+
 /* nav */
 .nav > li > a {
   padding: 10px 15px;
