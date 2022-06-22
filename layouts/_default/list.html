@@ -1,7 +1,7 @@
 {{ define "main" }}
 <h1>{{ .Title }}</h1>
 <div class="container pb-5">
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-auto">
             Categories: {{range ($.Site.GetPage "taxonomyTerm" "categories").Pages }}
             <a class="badge rounded-pill bg-primary nav-link" href="{{.Permalink}}">{{.Title}}</a>&nbsp;
@@ -12,7 +12,7 @@
             <a class="badge rounded-pill bg-success nav-link" href="{{.Permalink}}">{{.Title}}</a>&nbsp;
             {{end}}
         </div>
-    </div>
+    </div> -->
 
     {{ if ne .Kind "taxonomy" }}
         {{ range .Pages }}

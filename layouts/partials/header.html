@@ -44,10 +44,16 @@
 <!-- Heading -->
 {{ $subheading := .Site.Params.subheading }}
 {{ if $subheading }}
-    <div class="container-fluid py-2 bg-warning text-center">
+    <div class="container-fluid py-4 bg-warning text-center"> 
         <h1>{{ .Site.Params.myHeading }}</h1>
         <p>{{ .Site.Params.mySubHeading }}</p>
+        {{ range .Site.Menus.share }}
+            {{ $title := print .Title | safeHTML }}
+            <a title="{{ $title }}" href="{{ .URL }}">
+                {{ $text := print .Name | safeHTML }}
+                {{ partial "fontawesome.html" (dict "icon" $text "class" "inline-svg-x2 link-dark") }}    
+            </a>                    
+        {{ end }}
     </div>
 {{ end }}
-  
-  
+   
