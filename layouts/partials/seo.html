@@ -9,6 +9,7 @@
 
 <!-- Home SEO -->
 {{- if .IsHome -}}
+    <p>Home</p>
     <script type="application/ld+json"> 
     {
         "@context": "http://schema.org",
@@ -54,91 +55,124 @@
     </script>
 
 <!-- Page SEO -->
-{{- else if .IsPage -}}
-    <script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": {{ .Title | safeHTML }},
-        "inLanguage": "{{ .Site.LanguageCode }}",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "{{ .Permalink }}"
-        },
-        {{- $images := $params.seo.images | default slice -}}
-        {{- if not $images -}}
-            {{- with .Resources.GetMatch "featured-image-preview" -}}
-                {{- $images = slice "featured-image-preview" -}}
-            {{- end -}}
-            {{- with .Resources.GetMatch "featured-image" -}}
-                {{- $images = slice "featured-image" -}}
-            {{- end -}}
-        {{- end -}}
-        {{- with .Site.Params.seo.image -}}
-            {{- $images = $images | default (slice .) -}}
-        {{- end -}}
-        {{- with $images -}}
-            "image": [
-                {{- range $index, $value := . -}}
-                    {{- if gt $index 0 }},{{ end -}}
-                    {{- with dict "Path" $value "Resources" $.Resources | partial "function/resource.html" -}}
-                        {
-                            "@type": "ImageObject",
-                            "url": "{{ .Permalink }}",
-                            "width": {{ .Width }},
-                            "height": {{ .Height }}
-                        }
-                    {{- else -}}
-                        {{- with $value -}}
-                            "{{ . | absURL }}"
-                        {{- end -}}
-                    {{- end -}}
-                {{- end -}}
-            ],
-        {{- end -}}
-        "genre": "{{ .Type }}",
-        {{- with .Params.tags -}}
-            "keywords": "{{ delimit . ", " }}",
-        {{- end -}}
-        "wordcount": {{ .WordCount }},
-        "url": "{{ .Permalink }}",
-        {{- if not .PublishDate.IsZero -}}
-            "datePublished": {{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }},
-        {{- else if not .Date.IsZero -}}
-            "datePublished": {{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }},
-        {{- end -}}
-        {{- with .Lastmod -}}
-            "dateModified": {{ .Format "2006-01-02T15:04:05-07:00" | safeHTML }},
-        {{- end -}}
-        {{- with .Site.Copyright -}}
-            "license": {{ . | safeHTML }},
-        {{- end -}}
-        {{- $publisher := .Params.author | default .Site.Author.name | default (T "author") | dict "name" -}}
-        {{- $publisher = $params.seo.publisher | default dict | merge $publisher -}}
-        "publisher": {
-            "@type": "Organization",
-            "name": {{ $publisher.name | safeHTML }}
-            {{- $logo := $publisher.logoUrl -}}
-            {{- with dict "Path" $logo "Resources" .Resources | partial "function/resource.html" -}}
-                ,"logo": {
-                    "@type": "ImageObject",
-                    "url": "{{ .Permalink }}",
-                    "width": {{ .Width }},
-                    "height": {{ .Height }}
-                }
-            {{- else -}}
-                {{- with $logo -}}
-                    ,"logo": "{{ . | absURL }}"
-                {{- end -}}
-            {{- end -}}
-        },
-        {{- with .Params.author | default .Site.Author.name | default (T "author") -}}
+{{- else if .IsPage -}} 
+    <!-- Review SEO -->
+    {{- if and (.Params.posttype) (eq .Params.posttype "review") -}}
+        <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Review",
+            "itemReviewed": {
+                "@type": "Book",
+                "@id:": "{{ .Permalink }}",
+                "url": "{{ .Permalink }}",
+                "inLanguage": "en",
+                "isbn": "{{ .Params.isbn13 }}",
+                "datePublished": "{{ .Params.pubdate }}",
+                "bookFormat": "{{ .Params.bookformat }}",
+                "author": {
+                    "@type": "Person",
+                    "name": "{{ .Params.bookauthors }}"
+                }            
+            },
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": "{{ .Params.rating }}"
+            },
+            "name": "{{ .Title }}",
             "author": {
                 "@type": "Person",
-                "name": {{ . | safeHTML }}
+                "name": "{{ .Params.author }}"                
+            }
+        }
+        </script>
+    {{- else -}}
+        <!-- Blog SEO -->
+        <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "BlogPosting",
+            "headline": {{ .Title | safeHTML }},
+            "inLanguage": "{{ .Site.LanguageCode }}",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "{{ .Permalink }}"
             },
-        {{- end -}}
-        "description": {{ .Description | safeHTML }}
-    }
-    </script>
+            {{- $images := $params.seo.images | default slice -}}
+            {{- if not $images -}}
+                {{- with .Resources.GetMatch "featured-image-preview" -}}
+                    {{- $images = slice "featured-image-preview" -}}
+                {{- end -}}
+                {{- with .Resources.GetMatch "featured-image" -}}
+                    {{- $images = slice "featured-image" -}}
+                {{- end -}}
+            {{- end -}}
+            {{- with .Site.Params.seo.image -}}
+                {{- $images = $images | default (slice .) -}}
+            {{- end -}}
+            {{- with $images -}}
+                "image": [
+                    {{- range $index, $value := . -}}
+                        {{- if gt $index 0 }},{{ end -}}
+                        {{- with dict "Path" $value "Resources" $.Resources | partial "function/resource.html" -}}
+                            {
+                                "@type": "ImageObject",
+                                "url": "{{ .Permalink }}",
+                                "width": {{ .Width }},
+                                "height": {{ .Height }}
+                            }
+                        {{- else -}}
+                            {{- with $value -}}
+                                "{{ . | absURL }}"
+                            {{- end -}}
+                        {{- end -}}
+                    {{- end -}}
+                ],
+            {{- end -}}
+            "genre": "{{ .Type }}",
+            {{- with .Params.tags -}}
+                "keywords": "{{ delimit . ", " }}",
+            {{- end -}}
+            "wordcount": {{ .WordCount }},
+            "url": "{{ .Permalink }}",
+            {{- if not .PublishDate.IsZero -}}
+                "datePublished": {{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTML }},
+            {{- else if not .Date.IsZero -}}
+                "datePublished": {{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }},
+            {{- end -}}
+            {{- with .Lastmod -}}
+                "dateModified": {{ .Format "2006-01-02T15:04:05-07:00" | safeHTML }},
+            {{- end -}}
+            {{- with .Site.Copyright -}}
+                "license": {{ . | safeHTML }},
+            {{- end -}}
+            {{- $publisher := .Params.author | default .Site.Author.name | default (T "author") | dict "name" -}}
+            {{- $publisher = $params.seo.publisher | default dict | merge $publisher -}}
+            "publisher": {
+                "@type": "Organization",
+                "name": {{ $publisher.name | safeHTML }}
+                {{- $logo := $publisher.logoUrl -}}
+                {{- with dict "Path" $logo "Resources" .Resources | partial "function/resource.html" -}}
+                    ,"logo": {
+                        "@type": "ImageObject",
+                        "url": "{{ .Permalink }}",
+                        "width": {{ .Width }},
+                        "height": {{ .Height }}
+                    }
+                {{- else -}}
+                    {{- with $logo -}}
+                        ,"logo": "{{ . | absURL }}"
+                    {{- end -}}
+                {{- end -}}
+            },
+            {{- with .Params.author | default .Site.Author.name | default (T "author") -}}
+                "author": {
+                    "@type": "Person",
+                    "name": {{ . | safeHTML }}
+                },
+            {{- end -}}
+            "description": {{ .Description | safeHTML }}
+        }
+        </script>
+    {{- end -}}
 {{- end -}}
