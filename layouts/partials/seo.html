@@ -60,29 +60,29 @@
     {{- if and (.Params.posttype) (eq .Params.posttype "review") -}}
         <script type="application/ld+json">
         {
-            "@context": "http://schema.org",
-            "@type": "Review",
-            "itemReviewed": {
-                "@type": "Book",
-                "@id:": "{{ .Permalink }}",
-                "url": "{{ .Permalink }}",
-                "inLanguage": "en",
-                "isbn": "{{ .Params.isbn13 }}",
-                "datePublished": "{{ .Params.pubdate }}",
-                "bookFormat": "{{ .Params.bookformat }}",
-                "author": {
-                    "@type": "Person",
-                    "name": "{{ .Params.bookauthors }}"
-                }            
+            "@context" : "http://schema.org",
+            "@type" : "Book",
+            "name" : "{{ .Params.bookTitle }}",
+            "image" : "{{ .Params.featuredImage }}",
+            "author" : {
+                "@type" : "Person",
+                "name" : "{{ .Params.bookauthors }}"
             },
-            "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": "{{ .Params.rating }}"
+            "datePublished" : "{{ .Params.pubdate }}",
+            "publisher" : {
+                "@type" : "Organization",
+                "name" : "{{ .Params.publishers }}"
             },
-            "name": "{{ .Title }}",
-            "author": {
-                "@type": "Person",
-                "name": "{{ .Params.author }}"                
+            "inLanguage" : "en",
+            "genre" : "{{ .Params.genres }}",
+            "isbn" : "{{ .Params.isbn13 }}",
+            "bookFormat" : "{{ .Params.bookformat }}",
+            "review" : {
+                "@type" : "Review",
+                "reviewRating" : {
+                    "@type" : "Rating",
+                    "ratingValue" : {{ .Params.rating }}
+                }
             }
         }
         </script>
