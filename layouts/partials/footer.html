@@ -1,6 +1,17 @@
-<footer class="footer text-center bg-dark py-5 text-light">
-    <p>&copy; {{ now.Format "2006" }} {{ .Site.Copyright }}</p>
-    <p>
-        <a class="link-secondary" href="#">Back to top</a>
-    </p>
+<footer class="footer text-center bg-dark py-3 text-light">
+    <!-- Menu Start -->
+    <ul class="nav justify-content-end">
+            {{ range .Site.Menus.footer }}    
+            <li class="nav-item">
+                {{ $text := print .Name | safeHTML }}
+                <a class="nav-link" title="{{ $text }}" href="{{ .URL }}">
+                    {{ $text }}
+                </a>
+            </li>
+            {{ end }}
+        </ul>    
+        
+    &copy; {{ now.Format "2006" }}&nbsp;{{ .Site.Copyright }}<br/>
+    Powered by Hugo, theme: Strappy<br/>
+    <a class="link-secondary" href="#">Back to top</a>
 </footer> 

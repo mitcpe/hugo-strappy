@@ -9,7 +9,6 @@
 
 <!-- Home SEO -->
 {{- if .IsHome -}}
-    <p>Home</p>
     <script type="application/ld+json"> 
     {
         "@context": "http://schema.org",
@@ -82,6 +81,10 @@
                 "reviewRating" : {
                     "@type" : "Rating",
                     "ratingValue" : {{ .Params.rating }}
+                },
+                "author" : {
+                    "@type" : "Person",
+                    "name" : "{{ .Params.author }}"
                 }
             }
         }

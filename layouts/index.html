@@ -56,6 +56,7 @@
         <div class="row align-items-center">
           {{ range .Site.Params.values }}
           <div class="col-12 col-sm-4 text-center  py-5">
+            {{ partial "fontawesome.html" (dict "icon" .icon "class" .class) }}
             <i class="{{ .iconclass }} "></i>
             <h2>{{ .title }}</h2>
             <p>{{ .description }}</p>

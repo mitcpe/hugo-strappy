@@ -12,7 +12,9 @@
                         {{ $current := . }}
                         {{ range $name, $items := .Site.Taxonomies.tags }}
                             <li {{ if eq $current.RelPermalink (printf "%s/%s/" ("tags" | relLangURL) ($name | urlize | lower)) }}class="active"{{ end }}>
-                                <a href="{{ "tags/" | relLangURL }}{{ $name | urlize | lower }}"><i class="fas fa-tags"></i> {{ $name }}</a>
+                                <a href="{{ "tags/" | relLangURL }}{{ $name | urlize | lower }}">
+                                    {{ partial "fontawesome.html" (dict "icon" "tags" "class" "inline-svg") }}{{ $name }}
+                                </a>
                             </li>
                         {{ end }}
                     </ul>

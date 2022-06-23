@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+        <a class="navbar-brand" href="{{ "/" | relURL }}">
+            <img src="{{ .Site.Params.brandimg }}" alt="{{ .Site.Params.title }}">
+            &nbsp;{{ .Site.Title }}
+        </a>
   
         <!-- Activated for mobile view -->
         <button
@@ -44,15 +47,21 @@
 <!-- Heading -->
 {{ $subheading := .Site.Params.subheading }}
 {{ if $subheading }}
-    <div class="container-fluid py-4 bg-warning text-center"> 
-        <h1>{{ .Site.Params.myHeading }}</h1>
-        <p>{{ .Site.Params.mySubHeading }}</p>
-        {{ range .Site.Menus.share }}
-            {{ $title := print .Title | safeHTML }}
-            <a title="{{ $title }}" href="{{ .URL }}">
-                {{ $text := print .Name | safeHTML }}
-                {{ partial "fontawesome.html" (dict "icon" $text "class" "inline-svg-x2 link-dark") }}    
-            </a>                    
+    <div class="container-fluid">
+        {{ if .Site.Params.headerImage }}
+            <img class="img-fluid" src="{{ .Site.Params.headerImage }}">        
+        {{ else }}
+            <div class="py-5 bg-warning text-center">
+                <h1>{{ .Site.Params.myHeading }}</h1>
+                <p>{{ .Site.Params.mySubHeading }}</p>
+                {{ range .Site.Menus.share }}
+                    {{ $title := print .Title | safeHTML }}
+                    <a title="{{ $title }}" href="{{ .URL }}">
+                        {{ $text := print .Name | safeHTML }}
+                        {{ partial "fontawesome.html" (dict "icon" $text "class" "inline-svg-x2 link-dark") }}    
+                    </a>                    
+                {{ end }}
+            </div>
         {{ end }}
     </div>
 {{ end }}
