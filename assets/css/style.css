@@ -22,7 +22,7 @@ section {
     width: 1.6rem;
     bottom: 0.1rem;
     position: relative;
-    color: link-primary;
+    margin-right: 10px;
   }
   
   .inline-svg-x4 {
