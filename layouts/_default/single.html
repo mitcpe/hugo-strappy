@@ -1,11 +1,71 @@
 {{ define "main" }}
-  {{- partial "breadcrumbs.html" . }}
-  <h1>{{ .Title }}</h1>
-  <img
-    class="rounded w-50 mx-auto d-block"
-    src="{{ .Params.cover.image }}"
-    alt="{{ .Params.cover.alt }}"/>
-  <p class="text-center">{{ .Params.cover.caption }}</p>
+
+<h1>{{ .Title }}</h1>
+<br/>
+<!-- Check Blog -->
+{{ if or (eq .Section "post") (eq .Section "posts") (eq .Section "blog") (eq .Section "blogs") (eq .Section "news") (eq .Section "categories") (eq .Section "tags") }}
+  {{- partial "breadcrumbs.html" . }}<br/>
+
+  {{ if eq .Params.posttype "review" }}
+    <div class="container-fluid row">
+      <div class="col-sm-5">
+        {{ if resources.Get .Params.cover.image }}
+          {{ $image := resources.Get .Params.cover.image }}
+          {{ $image := $image.Resize "220x" }}
+          <img class="img-fluid" src="{{ $image.RelPermalink }}"> 
+          <p class="text-center">{{ .Params.cover.caption }}</p>
+        {{ end }}      
+      </div>
+      <div class="col-sm-7">        
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">Description</th>
+            </tr>            
+          </thead>
+          <tbody>
+            <tr>
+              <td>Title</td>
+              <td>{{.Params.bookTitle}}</td> 
+            </tr>
+            <tr>
+              <td>Author</td>
+              <td>{{.Params.bookauthors}}</td> 
+            </tr>
+            <tr>
+              <td>Date Published</td>
+              <td>{{dateFormat "2nd January 2006" .Params.pubdate}}</td> 
+            </tr>
+            <tr>
+              <td>Genre</td>
+              <td>{{.Params.genres}}</td> 
+            </tr>
+            <tr>
+              <td>Publisher</td>
+              <td>{{.Params.publishers}}</td> 
+            </tr>
+            {{ if .Params.series }}
+              <tr>
+                <td>Series</td>
+                <td>{{.Params.series}}&nbsp;{{.Params.seriesnum}}</td> 
+              </tr>
+            {{ end }}
+            <tr>
+              <td>ISBN</td>
+              <td>{{.Params.isbn13}}</td> 
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {{ else }}
+    <img
+      class="rounded w-50 mx-auto d-block"
+      src="{{ .Params.cover.image }}"
+      alt="{{ .Params.cover.alt }}"/>
+    <p class="text-center">{{ .Params.cover.caption }}</p>
+  {{ end }}
 
   <div class="row text-center">
     <div class="col">
@@ -20,10 +80,19 @@
   <div class="row">
     <div class="col-auto">
         Tags: {{range ($.GetTerms $tags) }}
-        <a class="badge rounded-pill bg-success nav-link" href="{{.Permalink}}">{{.Title}}</a>&nbsp;
+          <a class="badge rounded-pill bg-success nav-link" href="{{.Permalink}}">{{.Title}}</a>&nbsp;
         {{ end }}
     </div>
   </div>
   <br />
   {{- partial "disqus.html" . -}}
+{{ else}}
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          {{.Content}}
+        </div>
+      </div>
+    </div>
+{{ end }}
 {{ end }}
