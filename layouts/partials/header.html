@@ -35,7 +35,7 @@
             {{ $title := print .Title | safeHTML }}
             <a class="nav-link" title="{{ $title }}" href="{{ .URL }}">
                 {{ $text := print .Name | safeHTML }}
-                {{ partial "fontawesome.html" (dict "icon" $text "class" "inline-svg-x2 link-primary") }}
+                {{ partial "fontawesome.html" (dict "icon" $text "class" "inline-svg-x2") }}
             </a>
             {{ end }}
         </div>
@@ -49,7 +49,11 @@
 {{ if $subheading }}
     <div class="container-fluid">
         {{ if .Site.Params.headerImage }}
-            <img class="img-fluid" src="{{ .Site.Params.headerImage }}">        
+            {{ if resources.Get .Site.Params.headerImage }}
+                {{ $image := resources.Get .Site.Params.headerImage }}
+                {{ $image := $image.Resize .Site.Params.headerImageSize }}
+                <img class="img-fluid" src="{{ $image.RelPermalink }}"> 
+            {{ end }}       
         {{ else }}
             <div class="py-5 bg-warning text-center">
                 <h1>{{ .Site.Params.myHeading }}</h1>

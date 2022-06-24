@@ -1,17 +1,31 @@
-<footer class="footer text-center bg-dark py-3 text-light">
-    <!-- Menu Start -->
-    <ul class="nav justify-content-end">
-            {{ range .Site.Menus.footer }}    
-            <li class="nav-item">
-                {{ $text := print .Name | safeHTML }}
-                <a class="nav-link" title="{{ $text }}" href="{{ .URL }}">
-                    {{ $text }}
-                </a>
-            </li>
-            {{ end }}
-        </ul>    
+<footer class="section-sm">
+    <div class="container-fluid bg-dark text-light">
+        <div class="row justify-content-center align-items-center">
+            <!-- Menu Start -->
+            <div class="col-lg-12 text-center mt-5">
+                <ul class="list-inline footer-menu mb-4">
+                    {{ range site.Menus.footer }}
+                    <li class="list-inline-item mx-3">
+                        <a href="{{ .URL | absURL }}">{{ .Name }}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+
+                <ul class="social-links icon-box list-unstyled list-inline font-weight-500 mb-3">
+                    {{ range site.Menus.social }}
+                    <li class="list-inline-item text-center">
+                        <a href="{{ .URL }}" aria-label="social-icon">
+                            {{ $text := print .Name | safeHTML }}
+                            {{ partial "fontawesome.html" (dict "icon" $text "class" "inline-svg-x2 link-light") }}
+                        </a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
         
-    &copy; {{ now.Format "2006" }}&nbsp;{{ .Site.Copyright }}<br/>
-    Powered by Hugo, theme: Strappy<br/>
-    <a class="link-secondary" href="#">Back to top</a>
+            &copy;{{ now.Format "2006" }}&nbsp;{{ .Site.Copyright }}
+            Powered by Hugo | theme: Strappy<br/>
+            <a class="link-secondary" href="#">Back to top</a>
+        </div>
+    </div>
 </footer> 
