@@ -11,52 +11,23 @@
       <div class="col-sm-5">
         {{ if resources.Get .Params.cover.image }}
           {{ $image := resources.Get .Params.cover.image }}
-          {{ $image := $image.Resize "220x" }}
+          {{ $image := $image.Resize "240x" }}
           <img class="img-fluid" src="{{ $image.RelPermalink }}"> 
           <p class="text-center">{{ .Params.cover.caption }}</p>
         {{ end }}      
       </div>
-      <div class="col-sm-7">        
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Item</th>
-              <th scope="col">Description</th>
-            </tr>            
-          </thead>
-          <tbody>
-            <tr>
-              <td>Title</td>
-              <td>{{.Params.bookTitle}}</td> 
-            </tr>
-            <tr>
-              <td>Author</td>
-              <td>{{.Params.bookauthors}}</td> 
-            </tr>
-            <tr>
-              <td>Date Published</td>
-              <td>{{dateFormat "2nd January 2006" .Params.pubdate}}</td> 
-            </tr>
-            <tr>
-              <td>Genre</td>
-              <td>{{.Params.genres}}</td> 
-            </tr>
-            <tr>
-              <td>Publisher</td>
-              <td>{{.Params.publishers}}</td> 
-            </tr>
-            {{ if .Params.series }}
-              <tr>
-                <td>Series</td>
-                <td>{{.Params.series}}&nbsp;{{.Params.seriesnum}}</td> 
-              </tr>
-            {{ end }}
-            <tr>
-              <td>ISBN</td>
-              <td>{{.Params.isbn13}}</td> 
-            </tr>
-          </tbody>
-        </table>
+      <div class="col-sm-7">  
+        Title:&nbsp;&nbsp;<strong>{{.Params.bookTitle}}</strong><br/>
+        Author:&nbsp;&nbsp;<i>{{.Params.bookauthors}}</i><br/>
+        Date Published:&nbsp;&nbsp;{{dateFormat "2nd Jan 2006" .Params.pubdate}}<br/>
+        Genre:&nbsp;&nbsp;{{.Params.genres}}<br/>
+        Publisher:&nbsp;&nbsp;{{.Params.publishers}}<br/>
+        {{ if .Params.isbn13 }}
+          ISBN:&nbsp;&nbsp;{{.Params.isbn13}}<br/>
+        {{ end }}
+        {{ if .Params.series }}
+          Series:&nbsp;&nbsp;{{.Params.series}}&nbsp;{{.Params.seriesnum}}<br/>
+        {{ end }}                
       </div>
     </div>
   {{ else }}
