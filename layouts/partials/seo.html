@@ -82,6 +82,7 @@
                     "@type" : "Rating",
                     "ratingValue" : {{ .Params.rating }}
                 },
+                "name" : {{ .Title | safeHTML }},
                 "author" : {
                     "@type" : "Person",
                     "name" : "{{ .Params.author }}"
