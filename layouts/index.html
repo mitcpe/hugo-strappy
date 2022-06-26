@@ -48,19 +48,23 @@
   {{ end }}
 
   <!-- Our Values -->
-  {{ $ourvalues := .Site.Params.ourvalues }}
+  {{ $ourvalues := .Site.Params.ourValues }}
   {{ if $ourvalues }}
     <section class="py-5">
-      <h2 class="text-center">We are committed</h2>
+      <div class="text-center">
+        <h2>{{ .Site.Params.ourValuesHead }}</h2>
+        {{ .Site.Params.ourValuesNote }}
+      </div>      
       <div class="container">
         <div class="row align-items-center">
           {{ range .Site.Params.values }}
-          <div class="col-12 col-sm-4 text-center  py-5">
-            {{ partial "fontawesome.html" (dict "icon" .icon "class" .class) }}
-            <i class="{{ .iconclass }} "></i>
-            <h2>{{ .title }}</h2>
-            <p>{{ .description }}</p>
-          </div>
+            <div class="col-12 col-sm-4 text-center  py-5">
+            <a href="{{ .url }}">
+                {{ partial "fontawesome.html" (dict "icon" .icon "class" .class) }}
+                <h2>{{ .title }}</h2>
+                <p>{{ .description }}</p>
+              </a>
+            </div>
           {{ end }}
         </div>
       </div>

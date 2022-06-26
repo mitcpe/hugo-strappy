@@ -16,18 +16,20 @@
           <p class="text-center">{{ .Params.cover.caption }}</p>
         {{ end }}      
       </div>
-      <div class="col-sm-7">  
-        Title:&nbsp;&nbsp;<strong>{{.Params.bookTitle}}</strong><br/>
-        Author:&nbsp;&nbsp;<i>{{.Params.bookauthors}}</i><br/>
-        Date Published:&nbsp;&nbsp;{{dateFormat "2nd Jan 2006" .Params.pubdate}}<br/>
-        Genre:&nbsp;&nbsp;{{.Params.genres}}<br/>
-        Publisher:&nbsp;&nbsp;{{.Params.publishers}}<br/>
-        {{ if .Params.isbn13 }}
-          ISBN:&nbsp;&nbsp;{{.Params.isbn13}}<br/>
-        {{ end }}
-        {{ if .Params.series }}
-          Series:&nbsp;&nbsp;{{.Params.series}}&nbsp;{{.Params.seriesnum}}<br/>
-        {{ end }}                
+      <div class="col-sm-7 mt-5">
+        <div class="container-fluid py-5 bg-light">   
+          Title:&nbsp;&nbsp;<strong>{{.Params.bookTitle}}</strong><br/>
+          Author:&nbsp;&nbsp;<i>{{.Params.bookauthors}}</i><br/>
+          Date Published:&nbsp;&nbsp;{{dateFormat "2nd Jan 2006" .Params.pubdate}}<br/>
+          Genre:&nbsp;&nbsp;{{.Params.genres}}<br/>
+          Publisher:&nbsp;&nbsp;{{.Params.publishers}}<br/>
+          {{ if .Params.isbn13 }}
+            ISBN:&nbsp;&nbsp;{{.Params.isbn13}}<br/>
+          {{ end }}
+          {{ if .Params.series }}
+            Series:&nbsp;&nbsp;{{.Params.series}}&nbsp;{{.Params.seriesnum}}<br/>
+          {{ end }}
+        </div>                
       </div>
     </div>
   {{ else }}

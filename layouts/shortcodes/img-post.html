@@ -74,8 +74,7 @@
     {{ $path := $.Scratch.Get "path" }}
 
 <!-- Part 3 -->
-
-    {{ $imagepath := printf "images/%s" $file }}
+    {{ $imagepath := printf "img/%s" $file }}
     {{- $image := resources.Get $imagepath -}}
     {{ if ne $size ""}}
         {{ $image = $image.Resize $size }}           
