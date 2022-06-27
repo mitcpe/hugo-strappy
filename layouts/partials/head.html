@@ -20,6 +20,12 @@
     {{ $style := resources.Get "/css/style.css" | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $style.Permalink }}" as="style" />
 
+    <!-- Testing scss -->
+    {{ $main_options := (dict "targetPath" "css/site.css" "outputStyle" "compressed") }}
+    {{ $main_template := resources.Get "scss/main.scss" }}
+    {{ $main_style := $main_template | resources.ExecuteAsTemplate "main_parsed.scss" . | toCSS $main_options | resources.Minify | resources.Fingerprint }}    
+    <link rel="stylesheet" href="{{ $main_style.RelPermalink }}">
+
     <!-- Title -->
     <title>{{ if .IsHome }}{{ else }}{{ if .Title }}{{ .Title }} | {{ end }}{{ end }}{{ site.Title }}</title>
 

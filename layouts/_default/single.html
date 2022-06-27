@@ -3,7 +3,7 @@
 <h1>{{ .Title }}</h1>
 <br/>
 <!-- Check Blog -->
-{{ if or (eq .Section "post") (eq .Section "posts") (eq .Section "blog") (eq .Section "blogs") (eq .Section "news") (eq .Section "categories") (eq .Section "tags") }}
+{{ if or (eq .Section "post") (eq .Section "posts") (eq .Section "blog") (eq .Section "blogs") (eq .Section "review") (eq .Section "reviews") (eq .Section "news") (eq .Section "categories") (eq .Section "tags") }}
   {{- partial "breadcrumbs.html" . }}<br/>
 
   {{ if eq .Params.posttype "review" }}
@@ -12,7 +12,7 @@
         {{ if resources.Get .Params.cover.image }}
           {{ $image := resources.Get .Params.cover.image }}
           {{ $image := $image.Resize "240x" }}
-          <img class="img-fluid" src="{{ $image.RelPermalink }}"> 
+          <img class="rounded img-fluid" src="{{ $image.RelPermalink }}"> 
           <p class="text-center">{{ .Params.cover.caption }}</p>
         {{ end }}      
       </div>
