@@ -18,13 +18,14 @@
     {{- $name := .Name }}
     {{- $count := .Count }}
     {{- with site.GetPage (printf "/%s/%s" $type $name) }}
-    <li>
-      <a class="btn btn-outline-info position-relative" href="{{ .Permalink }}" role="button">{{ .Name }}
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          {{ $count }}          
-        </span>
-      </a>   
+    <li class="list-inline-item mb-1">
+        <a class="h6 px-4 py-3 rounded bg-light d-block font-weight-700" href="{{ .Permalink }}">
+          {{ partial "fontawesome.html" (dict "icon" "tags" "class" "inline-svg") }}  
+          {{ .Name }} 
+          {{ $count }}
+        </a>
     </li>
+       
     {{- end }}
     {{- end }}
 <!-- </ul> -->

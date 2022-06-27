@@ -5,6 +5,9 @@ AUTHOR: Freddie
 ----------------------------------------------------*/
 @import 'mixins';
 @import 'colorsnfonts';
+@import 'buttons';
+@import 'typology';
+@import 'templates/mainx';
 
 body {
     color: $gray;
@@ -12,7 +15,7 @@ body {
     font-family: $font_primary;
     font-weight: 500;
     font-size: 16px;
-    line-height: 1.65;
+    line-height: 1.55;
 }
 
 ::selection {
@@ -56,7 +59,7 @@ body {
 
 a.post-title:hover,
 .post-title:hover a {
-    color: $color-primary;
+    color: $color_primary;
 }
 
 .card-meta {
@@ -75,7 +78,7 @@ a.post-title:hover,
         display: inline-block;
 
         &hover {
-            color: $color-primary;
+            color: $color_primary;
         }
 
         img {
@@ -102,7 +105,7 @@ a.post-title:hover,
             }
 
             &:hover {
-                color: $color-primary;
+                color: $color_primary;
             }
         } 
     }
@@ -117,7 +120,7 @@ a.post-title:hover,
         display: inline-block;
 
         &:hover {
-            color: $color-primary;
+            color: $color_primary;
         }
     }
     &.icon-box li s {
@@ -172,7 +175,7 @@ a.post-title:hover,
   
     blockquote {
         padding: 20px 30px;
-        border-left: 6px solid $color-primary;
+        border-left: 6px solid $color_primary;
         color: $dark;
         font-weight: 700;
         font-size: 22px;
@@ -209,10 +212,10 @@ a.post-title:hover,
   
     a {
         color: $gray;
-        border-bottom: 1px dotted $color-primary;
+        border-bottom: 1px dotted $color_primary;
   
         &:hover {
-            color: $color-primary;
+            color: $color_primary;
         }
     }
     a.collapse-head {
@@ -238,7 +241,7 @@ a.post-title:hover,
                 height: 8px;
                 width: 8px;
                 border-radius: 50%;
-                background: $color-primary;
+                background: $color_primary;
                 left: 3px;
                 top: 8px;
             }
@@ -392,7 +395,7 @@ a.post-title:hover,
             }
   
             &.active {
-                background: $color-primary;
+                background: $color_primary;
   
                 .nav-link {
                     color: $white;
@@ -429,19 +432,19 @@ a.post-title:hover,
     font-weight: 900;
 }
 .text-primary {
-    color: $color-primary !important;
+    color: $color_primary !important;
 }
 a.text-primary:hover {
-    color: darken($color-primary, 10) !important;
+    color: darken($color_primary, 10) !important;
 }
 .bg-primary {
-    background-color: $color-primary !important;
+    background-color: $color_primary !important;
 }
 .text-dark {
     color: $dark;
 }
 a.text-dark:hover {
-    color: $color-primary !important;
+    color: $color_primary !important;
 }
 .bg-light {
     background-color: $light !important;
@@ -450,7 +453,7 @@ a.text-dark:hover {
     background-color: $dark !important;
 }
 .text-gray:hover {
-    color: $color-primary;
+    color: $color_primary;
 }
 
 // footer
@@ -460,8 +463,8 @@ footer {
         color: rgba($white, .7);
         &:hover {
             color: $white;
-            background-color: $color-primary;
-            border-color: $color-primary;
+            background-color: $color_primary;
+            border-color: $color_primary;
         }
     }
 }
@@ -469,7 +472,7 @@ footer {
     li a {
         color: rgba($white, .7);
         &:hover {
-            color: $color-primary;
+            color: $color_primary;
             text-decoration: underline;
         }
     }
