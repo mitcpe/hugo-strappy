@@ -1,27 +1,27 @@
 {{- $scratch := newScratch -}}
 
 {{- if not .Date.IsZero -}}
-    {{ partial "fontawesome.html" (dict "icon" "calendar" "class" "inline-svg") }}
+    <i class="fa fa-calendar-alt"></i>
     &nbsp;
     <span>{{.Date.Format "2 Jan 2006"}}</span>    
 {{- end }}
 
 {{- if (.Param "ShowReadingTime") -}}
     &nbsp;.&nbsp;
-    {{ partial "fontawesome.html" (dict "icon" "clock" "class" "inline-svg") }}
+    <i class="fa fa-clock"></i>
     &nbsp;
     {{ .ReadingTime }} minute{{ if (ne .ReadingTime 1) }}s{{ end }}
 {{- end }}
 
 {{- if (.Param "ShowWordCount") -}}
     &nbsp;.&nbsp;
-    {{ partial "fontawesome.html" (dict "icon" "pencil" "class" "inline-svg") }}
+    <i class="fa fa-pencil"></i>
     &nbsp;{{ .WordCount }} words
 {{- end }}
 
 {{- if or .Params.author site.Params.author }}
     &nbsp;.&nbsp;
-    {{ partial "fontawesome.html" (dict "icon" "user" "class" "inline-svg") }}
+    <i class="fa fa-user"></i>
     &nbsp;
     {{- $author := (.Params.author | default site.Params.author) }}
     {{- $author }}

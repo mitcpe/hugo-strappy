@@ -12,13 +12,12 @@
                 </ul>
 
                 <ul class="social-links icon-box list-unstyled list-inline font-weight-500 mb-3">
-                    {{ range site.Menus.social }}
-                    <li class="list-inline-item text-center">
-                        <a href="{{ .URL }}" aria-label="social-icon">
-                            {{ $text := print .Name | safeHTML }}
-                            {{ partial "fontawesome.html" (dict "icon" $text "class" "inline-svg-x2 link-light") }}
-                        </a>
-                    </li>
+                    {{range site.Params.social}}
+                        <li class="list-inline-item text-center">
+                            <a href="{{.url}}" aria-label="social-icon">
+                                <i class="fab {{.icon}}"></i>
+                            </a>
+                        </li>
                     {{ end }}
                 </ul>
             </div>

@@ -59,7 +59,7 @@
         <div class="row align-items-center">
           {{ range .Site.Params.values }}
             <div class="col-12 col-sm-4 text-center  py-5">            
-                <h4 class="py-3">{{ partial "fontawesome.html" (dict "icon" .icon "class" .class) }}</h4>
+                <h4 class="py-3"><i class="{{ .icon }}"></i></h4>
                 <h2>{{ .title }}</h2>
                 <p>{{ .description }}</p>
                 <button class="btn" onclick="window.location.href={{.url}}">
