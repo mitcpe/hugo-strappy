@@ -1,11 +1,17 @@
 {{ define "main" }}
 
-<h1 class="h2">{{ .Title }}</h1>
+<h1 class="h2 text-dark text-center">{{ .Title }}</h1>
 <br/>
 <!-- Check Blog -->
 {{ if or (eq .Section "post") (eq .Section "posts") (eq .Section "blog") (eq .Section "blogs") (eq .Section "review") (eq .Section "reviews") (eq .Section "news") (eq .Section "categories") (eq .Section "tags") }}
-  {{- partial "breadcrumbs.html" . }}<br/>
+  {{- partial "breadcrumbs.html" . }}
 
+  <div class="row text-center">
+    <div class="col">
+      {{- partial "metadata.html" . }}
+    </div>    
+  </div>
+  <br/>
   {{ if eq .Params.posttype "review" }}
     <div class="container-fluid row">
       <div class="col-sm-5">
@@ -29,6 +35,9 @@
           {{ if .Params.series }}
             Series:&nbsp;&nbsp;{{.Params.series}}&nbsp;{{.Params.seriesnum}}<br/>
           {{ end }}
+          {{ if .Params.pages }}
+            Pages:&nbsp;&nbsp;{{.Params.pages}}<br/>
+          {{ end }}  
         </div>                
       </div>
     </div>
@@ -40,11 +49,6 @@
     <p class="text-center">{{ .Params.cover.caption }}</p>
   {{ end }}
 
-  <div class="row text-center">
-    <div class="col">
-      {{- partial "metadata.html" . }}
-    </div>    
-  </div>
   <br />
   {{ .Content }}  
   <br />
@@ -58,6 +62,10 @@
     </div>
   </div>
   <br />
+  {{- partial "navlinks" . }}
+  
+  {{- partial "socialshare" . -}}
+  
   {{- partial "disqus.html" . -}}
 {{ else}}
     <div class="container">

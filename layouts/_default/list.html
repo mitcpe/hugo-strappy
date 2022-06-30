@@ -1,47 +1,48 @@
 {{ define "main" }}
-<h1 class="h2">{{ .Title }}</h1>
-<div class="container pb-5">
-    <!-- <div class="row">
-        <div class="col-auto">
-            Categories: {{range ($.Site.GetPage "taxonomyTerm" "categories").Pages }}
-            <a class="badge rounded-pill bg-primary nav-link" href="{{.Permalink}}">{{.Title}}</a>&nbsp;
-            {{end}}
-        </div>
-        <div class="col-auto">
-            Tags: {{range ($.Site.GetPage "taxonomyTerm" "tags").Pages }}
-            <a class="badge rounded-pill bg-success nav-link" href="{{.Permalink}}">{{.Title}}</a>&nbsp;
-            {{end}}
-        </div>
-    </div> -->
-
+    <h1 class="h2 text-dark">{{ .Title }}</h1>
+    <div class="container pb-5">
     {{ if ne .Kind "taxonomy" }}
-        {{ range .Pages }}
-        <div class="row g-4 mt-2 ">
-            <div class="col-lg-3 col-sm-12 align-middle">
-                {{ if resources.Get .Params.cover.image }}
-                    {{ $image := resources.Get .Params.cover.image }}
-                    {{ $image := $image.Resize "220x" }}
-                    <img class="img-fluid rounded" src="{{ $image.RelPermalink }}" alt="featured image {{.Title }}"> 
-                {{ end }}    
-            </div>
-            <div class="col-lg-9 col-sm-12 bg-light">
-                <a class="text-decoration-none" href="{{ .RelPermalink }}">
-                    <h2 class="h3 ">{{ .Title }}</h2>
-                </a>
-                {{ partial "metadata.html" . }}
-                <br />
-                Categories: {{ range .Params.categories }}
-                    <a class="text-decoration-none nav-item px-1" href="/categories/{{ . | urlize}}">{{ . }}</a>
-                    {{end}}
-                    <br/>
-                Tags:{{ range .Params.tags }}
-                    <a class="text-decoration-none nav-item px-1" href="/tags/{{ . | urlize}}">{{ . }}</a>
+
+        {{- $pages := .Pages -}}
+        {{- $paginator := .Paginate $pages -}}
+
+        {{ range $index, $page := $paginator.Pages }}
+            <div class="row g-4 mt-2 ">
+                <div class="col-lg-3 col-sm-12 align-middle">
+                    {{ if resources.Get .Params.cover.image }}
+                        {{ $image := resources.Get .Params.cover.image }}
+                        {{ $image := $image.Resize "220x" }}
+                        <img class="img-fluid rounded" src="{{ $image.RelPermalink }}" alt="featured image {{.Title }}"> 
+                    {{ end }}    
+                </div>
+                <div class="col-lg-9 col-sm-12 bg-light">
+                    <a class="text-decoration-none" href="{{ .RelPermalink }}">
+                        <h2 class="h3">{{ .Title }}</h2>
+                    </a>
+                    Categories: {{ range .Params.categories }}
+                        <a class="text-decoration-none nav-item px-1" href="/categories/{{ . | urlize}}">{{ . }}</a>
                         {{end}}
-                {{ .Content | truncate 300 }}
-                <a class="text-decoration-none link-secondary nav-link" href="{{.Permalink}}">...Read Article</a>
-            </div>
-        </div>
-        {{ end }}
-    {{ end }}
-</div>
-{{ end }}
+                        <br/>
+                    Tags:{{ range .Params.tags }}
+                        <a class="text-decoration-none nav-item px-1" href="/tags/{{ . | urlize}}">{{ . }}</a>
+                            {{end}}
+                    {{ .Content | truncate 300 }}
+                    <a class="text-decoration-none link-secondary nav-link" href="{{.Permalink}}">...Read Article</a>
+                </div>
+            </div>                
+        {{ end }} {{/* Range */}}
+        {{- if gt $paginator.TotalPages 1 }}
+            <div class="container text-center">
+                <nav class="pagination">
+                    {{- if $paginator.HasPrev }}
+                        <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">Prev Page</a>
+                    {{- end }}
+                    {{- if $paginator.HasNext }}
+                        <a class="next" href="{{ $paginator.Next.URL | absURL }}">Next Page</a>
+                    {{- end }}
+                </nav>
+            </div>            
+        {{- end -}}
+    {{ end }} {{/* if Kind */}}
+    </div>
+{{ end }} {{/* Main */}}

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ "/" | relURL }}">
             <img src="{{ .Site.Params.brandimg }}" alt="{{ .Site.Params.title }}">
@@ -47,12 +47,12 @@
 <!-- Heading -->
 {{ $subheading := .Site.Params.subheading }}
 {{ if $subheading }}
-    <div class="container-fluid">
+    <div class="container-fluid mt-5 pt-2">
         {{ if .Site.Params.headerImage }}
             {{ if resources.Get .Site.Params.headerImage }}
                 {{ $image := resources.Get .Site.Params.headerImage }}
                 {{ $image := $image.Resize .Site.Params.headerImageSize }}
-                <img class="img-fluid" src="{{ $image.RelPermalink }}"> 
+                <img class="img-fluid" src="{{ $image.RelPermalink }}" width="1466" height="295"> 
             {{ end }}       
         {{ else }}
             <div class="py-5 bg-warning text-center">
