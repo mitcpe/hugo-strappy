@@ -44,11 +44,11 @@
             /* This is the part where you call the above defined function and "calls back" 
             your code which gets executed after the script has loaded */
             //REPLACE WITH YOUR GA TAG!
-            loadScriptAsync('https://www.googletagmanager.com/gtag/js?id={{ .Site.googleAnalytics }}', function () {
+            loadScriptAsync('https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}', function () {
                 window.dataLayer = window.dataLayer || [];
                 function gtag() { dataLayer.push(arguments); }
                 gtag('js', new Date());
-                gtag('config', '{{ .Site.googleAnalytics }}', { 'anonymize_ip': true }); //REPLACE WITH YOUR GA TAG!
+                gtag('config', '{{ .Site.Params.googleAnalytics }}', { 'anonymize_ip': true }); //REPLACE WITH YOUR GA TAG!
             })
     
             {{ end }}
