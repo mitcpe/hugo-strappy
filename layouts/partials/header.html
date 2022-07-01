@@ -35,7 +35,7 @@
             {{ $title := print .Title | safeHTML }}
             <a class="nav-link" title="{{ $title }}" href="{{ .URL }}">
                 {{ $text := print .Name | safeHTML }}
-                {{ partial "fontawesome.html" (dict "icon" $text "class" "inline-svg-x2") }}
+                <i class="{{ $text }}"></i>
             </a>
             {{ end }}
         </div>
