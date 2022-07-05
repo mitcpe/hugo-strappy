@@ -1,0 +1,45 @@
+  
+  <h5>Please Consider Sharing</h5>
+  <span class="social-share icon-box">
+    {{ if .Site.Params.share.facebook }}
+      <a href="https://www.facebook.com/sharer.php?u={{ .Permalink }}" target="_blank" class="facebook text-center">
+        <i class="fab fa-facebook-f fa-fw fa-lg"></i>
+      </a>
+    {{ end }}
+
+    {{ if .Site.Params.share.twitter }}
+      <a href="https://twitter.com/share?url={{ .Permalink }}&text={{ .Title }}&via=@iluvbooks_org" target="_blank" class="twitter text-center">
+        <i class="fab fa-twitter fa-fw fa-lg"></i>
+      </a>
+    {{ end }}
+
+    {{ if .Site.Params.share.reddit }}  
+      <a href="https://reddit.com/submit?url={{ .Permalink }}&title={{ .Title }}" target="_blank" class="reddit text-center">
+        <i class="fab fa-reddit-alien fa-fw fa-lg"></i>
+      </a>
+    {{ end }}
+
+    {{ if .Site.Params.share.tumblr }}
+      <a href="https://www.tumblr.com/share/link?url={{ .Permalink }}&name={{ .Title }}{{- with .Params.description -}}&description={{- . -}}{{- end -}}" target="_blank" class="tumblr text-center">
+        <i class="fab fa-tumblr fa-fw fa-lg"></i>
+      </a>
+    {{ end }}
+
+    {{ if .Site.Params.share.linkedin }}
+      <a href="https://www.linkedin.com/shareArticle?url={{ .Permalink }}&title={{ .Title }}" target="_blank" class="linkedin text-center">
+        <i class="fab fa-linkedin-in fa-fw fa-lg"></i>
+      </a>
+    {{ end }}
+
+    {{ if .Site.Params.share.pinterest }}
+      <a href="https://www.pinterest.co.uk/pin/create/button/?url={{ .Permalink }}&media={{ .Params.cover.image }}&description={{ .Title }}" target="_blank" class="pinterest text-center">
+        <i class="fab fa-pinterest fa-fw fa-lg"></i>
+      </a>
+    {{ end }}
+    
+    {{ if .Site.Params.share.email }}
+      <a href="mailto:?subject={{ .Title }}&body=Check out this article on Lutheran Answers: {{ .Permalink }}" target="_blank" class="email text-center">
+        <i class="fa fa-paper-plane fa-fw fa-lg"></i>
+      </a>
+    {{ end }}
+  </span>

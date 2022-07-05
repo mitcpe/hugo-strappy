@@ -7,20 +7,20 @@
 {{- end }}
 
 {{- if (.Param "ShowReadingTime") -}}
-    &nbsp;.&nbsp;
+    &nbsp;|&nbsp;
     <i class="fa fa-clock"></i>
     &nbsp;
     {{ .ReadingTime }} minute{{ if (ne .ReadingTime 1) }}s{{ end }}
 {{- end }}
 
 {{- if (.Param "ShowWordCount") -}}
-    &nbsp;.&nbsp;
+    &nbsp;|&nbsp;
     <i class="fa fa-pencil"></i>
     &nbsp;{{ .WordCount }} words
 {{- end }}
 
 {{- if or .Params.author site.Params.author }}
-    &nbsp;.&nbsp;
+    &nbsp;|&nbsp;
     <i class="fa fa-user"></i>
     &nbsp;
     {{- $author := (.Params.author | default site.Params.author) }}

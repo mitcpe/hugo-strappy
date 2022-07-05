@@ -3,17 +3,18 @@
     {{- $recent_num := (.Site.Params.widgets.recent_num | default 10) }}
 
     {{- if $recent }}
-        <div class="panel panel-default sidebar-menu">
-            <div class="panel-heading">
-                <h5 class="panel-title">{{ i18n "recentTitle" }}</h5>
+        <div class="card border-info">
+            <div class="card-header">
+                <h5 class="text-uppercase">{{ i18n "recentTitle" }}</h5>
             </div>
-            <div class="panel-body">
-	            <ul class="nav-stacked">
-			        {{- range first $recent_num $recent }}
-			            <li class="widget__item"><a class="widget__link" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-			        {{- end }}
-		        </ul>
-	        </div>
+            <ul class="list-group">
+                {{- range first $recent_num $recent }}
+			        <li class="list-group-item">
+                        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    </li>
+			    {{- end }}
+		    </ul>
+	        
         </div>
     {{- end }}
 {{- end }}

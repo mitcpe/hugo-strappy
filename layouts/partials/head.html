@@ -17,8 +17,8 @@
     <!-- Fontawsome icons have been replaced by SVG's -->
     
     <!-- Customer CSS --> 
-    {{ $style := resources.Get "/css/style.css" | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $style.Permalink }}" as="style" />
+    {{/*  {{ $style := resources.Get "/css/style.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $style.Permalink }}" as="style" />  */}}
 
     <!-- Testing scss -->
     {{ $main_options := (dict "targetPath" "css/site.css" "outputStyle" "compressed") }}

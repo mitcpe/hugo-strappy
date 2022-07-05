@@ -37,7 +37,7 @@
           {{ end }}
           {{ if .Params.pages }}
             Pages:&nbsp;&nbsp;{{.Params.pages}}<br/>
-          {{ end }}  
+          {{ end }} 
         </div>                
       </div>
     </div>
@@ -63,7 +63,9 @@
   </div>
   <br />
   {{- partial "navlinks" . }}
-  <br/>
+  <br />
+  {{- partial "socialshare" . }}
+  <br />
   <h5>Please leave any comments below:</h5>
   <div id="cusdis_thread"
     data-host="https://cusdis.com"

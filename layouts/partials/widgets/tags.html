@@ -1,25 +1,22 @@
 {{ if .Site.Params.widgets.tags }}
     {{ if isset .Site.Taxonomies "tags" }}
         {{ if not (eq (len .Site.Taxonomies.tags) 0) }}
-            <div class="panel sidebar-menu">
-
-                <div class="panel-heading">
-                    <h4 class="panel-title">{{ i18n "tagsTitle" }}</h4>
+            <div class="card border-info">
+                <div class="card-header">
+                    <h5 class="text-uppercase">{{ i18n "tagsTitle" }}</h5>
                 </div>
 
-                <div class="panel-body">
-                    <ul class="tag-cloud">
-                        {{ $current := . }}
-                        {{ range $name, $items := .Site.Taxonomies.tags }}
-                            <li {{ if eq $current.RelPermalink (printf "%s/%s/" ("tags" | relLangURL) ($name | urlize | lower)) }}class="active"{{ end }}>
-                                <a href="{{ "tags/" | relLangURL }}{{ $name | urlize | lower }}">
-                                    {{ partial "fontawesome.html" (dict "icon" "tags" "class" "inline-svg") }}{{ $name }}
-                                </a>
-                            </li>
+                <div class="card-body">
+                    {{ $current := . }}
+                    {{ range $name, $items := .Site.Taxonomies.tags }}
+                        {{ if eq $current.RelPermalink (printf "%s/%s/" ("tags" | relLangURL) ($name | urlize | lower)) }}
+                            class="active"
                         {{ end }}
-                    </ul>
+                        <a href="{{ "tags/" | relLangURL }}{{ $name | urlize | lower }}">
+                            <i class="fa fa-tag"></i>{{ $name }}
+                        </a>                         
+                    {{ end }}                    
                 </div>
-
             </div>
         {{ end }}
     {{ end }}

@@ -1,9 +1,8 @@
 {{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
 
 {{- if and (gt (len $pages) 1) (in $pages . ) }}
-    <div class="container bg-light">
-        <div class="row">
-            <div class="col align-self-start">
+    <div class="d-flex bd-highlight mb-3">
+         <div class="p-2 bd-highlight">
                 {{- with $pages.Next . }}
                     <a href="{{ .Permalink }}">
                         <span>« Prev</span><br/>
@@ -11,7 +10,7 @@
                     </a>                   
                 {{- end }}
             </div>
-            <div class="col align-self-end">
+            <div class="ms-auto bd-highlight align-content-end">
                 {{- with $pages.Prev . }}
                     <a class="next" href="{{ .Permalink }}">
                         <span>Next »</span><br/>
@@ -19,6 +18,6 @@
                     </a>
                 {{- end }}
             </div>
-        </div>
+        
     </div>
 {{- end }}

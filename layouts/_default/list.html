@@ -12,7 +12,7 @@
                     {{ if resources.Get .Params.cover.image }}
                         {{ $image := resources.Get .Params.cover.image }}
                         {{ $image := $image.Resize "220x" }}
-                        <img class="img-fluid rounded" src="{{ $image.RelPermalink }}" alt="featured image {{.Title }}"> 
+                        <img class="img-fluid rounded" src="{{ $image.RelPermalink }}" width="220px" alt="featured image {{.Title }}"> 
                     {{ end }}    
                 </div>
                 <div class="col-lg-9 col-sm-12 bg-light">
@@ -21,13 +21,16 @@
                     </a>
                     Categories: {{ range .Params.categories }}
                         <a class="text-decoration-none nav-item px-1" href="/categories/{{ . | urlize}}">{{ . }}</a>
-                        {{end}}
-                        <br/>
+                        {{end}}<br/>
                     Tags:{{ range .Params.tags }}
                         <a class="text-decoration-none nav-item px-1" href="/tags/{{ . | urlize}}">{{ . }}</a>
-                            {{end}}
-                    {{ .Content | truncate 300 }}
-                    <a class="text-decoration-none link-secondary nav-link" href="{{.Permalink}}">...Read Article</a>
+                        {{end}}<br/>
+                    {{ if .Params.description }}    
+                        <br/><em>{{ .Params.description | truncate 300 }}</em>
+                    {{ else }}
+                        {{ .Content | truncate 300 }}
+                    {{ end }}    
+                    <a class="text-decoration-none link-secondary nav-link" href="{{.Permalink}}">...Read More</a>
                 </div>
             </div>                
         {{ end }} {{/* Range */}}
