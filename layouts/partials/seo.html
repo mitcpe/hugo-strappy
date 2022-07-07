@@ -1,8 +1,4 @@
 <!-- {{ template "_internal/google_analytics_async.html" . }} --> 
-{{ template "_internal/opengraph.html" . }} 
-{{ template "_internal/schema.html" . }} 
-{{ template "_internal/twitter_cards.html" . }}
-
 {{- $params := .Scratch.Get "params" -}}
 
 <!-- Home SEO -->
@@ -55,38 +51,69 @@
 {{- else if .IsPage -}} 
     <!-- Review SEO -->
     {{- if and (.Params.posttype) (eq .Params.posttype "review") -}}
+        {{ $image := "" }}
+        {{ if resources.Get .Params.featuredImage }}
+            {{ $image := resources.Get .Params.featuredImage }}
+        {{ end }}
         <script type="application/ld+json">
         {
-            "@context" : "http://schema.org",
-            "@type" : "Book",
-            "name" : "{{ .Params.bookTitle }}",
-            "image" : "{{ .Params.featuredImage }}",
-            "author" : {
-                "@type" : "Person",
-                "name" : "{{ .Params.bookauthors }}"
-            },
-            "datePublished" : "{{ .Params.pubdate }}",
-            "publisher" : {
-                "@type" : "Organization",
-                "name" : "{{ .Params.publishers }}"
-            },
-            "inLanguage" : "en",
-            "genre" : "{{ .Params.genres }}",
-            "isbn" : "{{ .Params.isbn13 }}",
-            "bookFormat" : "{{ .Params.bookformat }}",
-            "review" : {
-                "@type" : "Review",
-                "reviewRating" : {
-                    "@type" : "Rating",
-                    "ratingValue" : {{ .Params.rating }}
+            "@context": "http://schema.org",
+            "@graph":[
+            {
+                "@type": "Book",
+                "name": "{{ .Params.bookTitle }}",
+                "url": "{{ .Permalink }}",
+                "sameAs": "https://goodreads.com/",
+                "datePublished": "{{ .Params.pubdate }}",
+                "genre": "{{ .Params.genres }}",
+                "inLanguage" : "en-GB",
+                "thumbnailUrl": "{{- $image | absURL -}}",
+                "author": {
+                    "@type": "Person",
+                    "name": "{{ .Params.bookauthors }}"
                 },
-                "name" : {{ .Title | safeHTML }},
-                "author" : {
-                    "@type" : "Person",
-                    "name" : "{{ .Params.author }}"
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "{{ .Params.publishers }}"
+                },
+                "isbn": "{{ .Params.isbn13 }}",
+                "bookFormat": "{{ .Params.bookformat }}",
+                "numOfPages": "{{ .Params.pages }}"
+            },
+            { 
+                "@type": "Review",
+                "url": "{{ .Permalink }}",
+                "datePublished": {{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }},
+                "description": "{{ .Params.description }}",
+                "inLanguage" : "en-GB",
+                "thumbnailUrl": "{{- $image | absURL -}}",
+                "author": {
+                    "@type": "Person",
+                    "name": "{{ .Params.author }}"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "I Love Books",
+                    "sameAs": "https://www.iluvbooks.co.uk/"
+                },
+                "itemReviewed": {
+                    "@type": "Book",
+                    "name": "{{ .Params.bookTitle }}",
+                    "isbn": "{{ .Params.isbn13 }}",
+                    "datePublished": "{{ .Params.pubdate }}",
+                    "author": {
+                        "@type": "Person",
+                        "name": "{{ .Params.bookauthors }}"
+                    }
+                },
+                "reviewRating": {
+                    "@type": "Rating",
+                    "worstRating": 1,
+                    "bestRating": 5,
+                    "ratingValue": {{ .Params.rating }}
                 }
             }
-        }
+        ]}
         </script>
     {{- else -}}
         <!-- Blog SEO -->
@@ -178,3 +205,9 @@
         </script>
     {{- end -}}
 {{- end -}}
+
+{{ partial "templates/opengraph.html" . }}
+
+{{ template "_internal/schema.html" . }} 
+
+{{ partial "templates/twittercard.html" . }}

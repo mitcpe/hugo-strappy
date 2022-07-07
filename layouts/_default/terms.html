@@ -20,9 +20,7 @@
     {{- with site.GetPage (printf "/%s/%s" $type $name) }}
     <li class="list-inline-item mb-1">
         <a class="h6 px-4 py-3 rounded bg-light d-block font-weight-700" href="{{ .Permalink }}">
-          {{ partial "fontawesome.html" (dict "icon" "tags" "class" "inline-svg") }}  
-          {{ .Name }} 
-          {{ $count }}
+            <i class="fa fa-tag"></i>&nbsp;{{ .Name }}&nbsp;({{ $count }})
         </a>
     </li>
        
