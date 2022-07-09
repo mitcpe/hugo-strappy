@@ -1,32 +1,32 @@
-{{ define "main" }}
-    <h1 class="h2 text-dark">{{ .Title }}</h1>
+{{ define "main" }}    
+    <h1 class="text-dark">{{ .Title }}</h1>
     <div class="container pb-5">
     {{ if ne .Kind "taxonomy" }}
-
-        {{- $pages := .Pages -}}
-        {{- $paginator := .Paginate $pages -}}
-
-        {{ range $index, $page := $paginator.Pages }}
+        {{ range .Paginator.Pages }}
             <div class="row g-4 mt-2 ">
                 <div class="col-lg-3 col-sm-12 align-middle">
-                    {{ if resources.Get .Params.cover.image }}
-                        {{ $image := resources.Get .Params.cover.image }}
+                    {{ if resources.Get .Params.featuredImage }}
+                        {{ $image := resources.Get .Params.featuredImage }}
                         {{ $image := $image.Resize "220x" }}
                         <img class="img-fluid rounded" src="{{ $image.RelPermalink }}" width="220px" alt="featured image {{.Title }}"> 
                     {{ end }}    
                 </div>
                 <div class="col-lg-9 col-sm-12 bg-light">
-                    <a class="text-decoration-none" href="{{ .RelPermalink }}">
-                        <h2 class="h3">{{ .Title }}</h2>
+                    <a class="text-decoration-none post-title" href="{{ .RelPermalink }}">
+                        <h2>{{ .Title }}</h2>
                     </a>
-                    Categories: {{ range .Params.categories }}
+                    {{/*  Categories: {{ range .Params.categories }}
                         <a class="text-decoration-none nav-item px-1" href="/categories/{{ . | urlize}}">{{ . }}</a>
                         {{end}}<br/>
                     Tags:{{ range .Params.tags }}
                         <a class="text-decoration-none nav-item px-1" href="/tags/{{ . | urlize}}">{{ . }}</a>
-                        {{end}}<br/>
-                    {{ if .Params.description }}    
-                        <br/><em>{{ .Params.description | truncate 300 }}</em>
+                        {{end}}<br/>  */}}
+                    <p>{{- partial "metadata.html" . }}</p>
+                    {{ if eq .Params.posttype "review" }}
+                        Rating: {{ .Params.viewRating }}<br/>
+                    {{ end }}    
+                    {{ if .Params.description }}
+                        <em>{{ .Params.description | truncate 300 }}</em>
                     {{ else }}
                         {{ .Content | truncate 300 }}
                     {{ end }}    
@@ -34,18 +34,11 @@
                 </div>
             </div>                
         {{ end }} {{/* Range */}}
-        {{- if gt $paginator.TotalPages 1 }}
-            <div class="container text-center">
-                <nav class="pagination">
-                    {{- if $paginator.HasPrev }}
-                        <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">Prev Page</a>
-                    {{- end }}
-                    {{- if $paginator.HasNext }}
-                        <a class="next" href="{{ $paginator.Next.URL | absURL }}">Next Page</a>
-                    {{- end }}
-                </nav>
-            </div>            
-        {{- end -}}
+        <br />
+        <div class="d-flex justify-content-center">
+            {{ template "_internal/pagination.html" . }}
+        </div>
+        
     {{ end }} {{/* if Kind */}}
     </div>
 {{ end }} {{/* Main */}}

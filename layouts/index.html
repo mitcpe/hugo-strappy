@@ -50,19 +50,20 @@
   <!-- Our Values -->
   {{ $ourvalues := .Site.Params.ourValues }}
   {{ if $ourvalues }}
-    <section class="py-5">
+    <section class="py-5 px-5">
       <div class="text-center">
-        <h2>{{ .Site.Params.ourValuesHead }}</h2>
-        {{ .Site.Params.ourValuesNote }}
+        <h2 class="text-dark">{{ .Site.Params.ourValuesHead }}</h2>
+        {{ .Site.Params.ourValuesNote1 }}<br/>
+        {{ .Site.Params.ourValuesNote2 }}
       </div>      
       <div class="container">
         <div class="row align-items-center">
           {{ range .Site.Params.values }}
             <div class="col-12 col-sm-4 text-center  py-5">            
-                <h4 class="py-3"><i class="{{ .icon }}"></i></h4>
-                <h2>{{ .title }}</h2>
+                <h2 class="py-3 text-primary"><i class="{{ .icon }}"></i></h2>
+                <h2 class="text-dark">{{ .title }}</h2>
                 <p>{{ .description }}</p>
-                <button class="btn btn-primary btn-sm" onclick="window.location.href={{.url}}">
+                <button class="btn btn-primary btn-sm" onclick="window.location.href={{ .url }}">
                   {{ .button }}
                 </button>
             </div>

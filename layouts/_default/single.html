@@ -1,6 +1,6 @@
 {{ define "main" }}
 
-<h1 class="h2 text-dark text-center">{{ .Title }}</h1>
+<h1 class="text-center text-dark">{{ .Title }}</h1>
 <br/>
 <!-- Check Blog -->
 {{ if or (eq .Section "post") (eq .Section "posts") (eq .Section "blog") (eq .Section "blogs") (eq .Section "review") (eq .Section "reviews") (eq .Section "news") (eq .Section "categories") (eq .Section "tags") }}
@@ -22,8 +22,8 @@
           <p class="text-center">{{ .Params.cover.caption }}</p>
         {{ end }}      
       </div>
-      <div class="col-sm-7 mt-5">
-        <div class="container-fluid py-5 bg-light">   
+      <div class="col-sm-7 align-self-center">
+        <div class="container py-5 bg-light">   
           Title:&nbsp;&nbsp;<strong>{{.Params.bookTitle}}</strong><br/>
           Author:&nbsp;&nbsp;<i>{{.Params.bookauthors}}</i><br/>
           Date Published:&nbsp;&nbsp;{{dateFormat "2 Jan, 2006" .Params.pubdate}}<br/>
