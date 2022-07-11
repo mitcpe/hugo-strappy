@@ -1,9 +1,17 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ "/" | relURL }}">
-            <img src="{{ .Site.Params.brandimg }}" alt="{{ .Site.Params.title }}">
-            &nbsp;{{ .Site.Title }}
-        </a>
+        {{ if resources.Get .Site.Params.brandimg }}
+            {{ $image := resources.Get .Site.Params.brandimg }}
+            <a class="navbar-brand" href="{{ "/" | relURL }}">
+                <img src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}"  alt="{{ .Site.Params.title }}">
+                &nbsp;{{ .Site.Title }}
+            </a>
+        {{ else }}
+            <a class="navbar-brand" href="{{ "/" | relURL }}">
+                <img src="{{ .Site.Params.brandimg }}"  alt="{{ .Site.Params.title }}">
+                &nbsp;{{ .Site.Title }}
+            </a>
+        {{ end }}
   
         <!-- Activated for mobile view -->
         <button
@@ -52,7 +60,7 @@
             {{ if resources.Get .Site.Params.headerImage }}
                 {{ $image := resources.Get .Site.Params.headerImage }}
                 {{ $image := $image.Resize .Site.Params.headerImageSize }}
-                <img class="img-fluid" src="{{ $image.RelPermalink }}" width="1466" height="295"> 
+                <img class="img-fluid" src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}"> 
             {{ end }}       
         {{ else }}
             <div class="py-5 bg-warning text-center">

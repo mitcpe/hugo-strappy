@@ -8,7 +8,7 @@
                     {{ if resources.Get .Params.featuredImage }}
                         {{ $image := resources.Get .Params.featuredImage }}
                         {{ $image := $image.Resize "220x" }}
-                        <img class="img-fluid rounded" src="{{ $image.RelPermalink }}" width="220px" alt="featured image {{.Title }}"> 
+                        <img class="img-fluid rounded" src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}" alt="featured image {{.Title }}"> 
                     {{ end }}    
                 </div>
                 <div class="col-lg-9 col-sm-12 bg-light">

@@ -18,10 +18,10 @@
         {{ if resources.Get .Params.cover.image }}
           {{ $image := resources.Get .Params.cover.image }}
           {{ $image := $image.Resize "240x" }}
-          <img class="rounded img-fluid" src="{{ $image.RelPermalink }}"> 
+          <img class="rounded img-fluid" src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}"> 
           <p class="text-center">{{ .Params.cover.caption }}</p>
         {{ end }}      
-      </div>
+      </div> 
       <div class="col-sm-7 align-self-center">
         <div class="container py-5 bg-light">   
           Title:&nbsp;&nbsp;<strong>{{.Params.bookTitle}}</strong><br/>
@@ -45,10 +45,17 @@
       </div>
     </div>
   {{ else }}
-    <img
-      class="rounded w-50 mx-auto d-block"
-      src="{{ .Params.cover.image }}"
-      alt="{{ .Params.cover.alt }}"/>
+    {{ if resources.Get .Params.cover.image }}
+      {{ $image := resources.Get .Params.cover.image }}
+      <img class="rounded w-50 mx-auto d-block"
+           src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}"
+           alt="{{ .Params.cover.alt }}"/>
+    {{ else }}
+      <img class="rounded w-50 mx-auto d-block"
+           src="{{ .Params.cover.image }}"
+           alt="{{ .Params.cover.alt }}"/>
+    {{ end }}
+    
     <p class="text-center">{{ .Params.cover.caption }}</p>
   {{ end }}
 
