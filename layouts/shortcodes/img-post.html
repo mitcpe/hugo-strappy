@@ -18,7 +18,7 @@
             right: places the image to the right
 -->
 {{ $numOfParams := len .Params }}
-{{ if and (ge $numOfParams 2) (le $numOfParams 5) }}
+{{ if and (ge $numOfParams 2) (le $numOfParams 6) }}
     <!-- Check if the Parameter is positional or named
          which can handle both. -->
     {{ if .IsNamedParams }}
@@ -27,6 +27,7 @@
         {{ $.Scratch.Set "alt"  (.Get "alt") }}
         {{ $.Scratch.Set "type" (.Get "type") }}
         {{ $.Scratch.Set "size" (.Get "size") }}
+        {{ $.Scratch.Set "circle" (.Get "circle") }}
     {{ else }}
         {{ $.Scratch.Set "path" (.Get 0) }}
         {{ $.Scratch.Set "file" (.Get 1) }}
@@ -45,7 +46,11 @@
         {{ else }}
             {{ $.Scratch.Set "size" "" }}
         {{ end }}
-
+        {{ if ge $numOfParams 6 }}
+            {{ $.Scratch.Set "circle"  (.Get 5) }}
+        {{ else }}
+            {{ $.Scratch.Set "circle" "" }}
+        {{ end }}
     {{ end }}
 
 <!-- Part 2 -->
@@ -54,6 +59,7 @@
     {{ $alt  := $.Scratch.Get "alt" }}
     {{ $path := $.Scratch.Get "path" }}
     {{ $size := $.Scratch.Get "size" }}
+    {{ $circle := $.Scratch.Get "circle"}}
 
     <!--
         Set the path depending on the value passed through
@@ -82,11 +88,23 @@
 
     {{ if eq $type "left" }}
         <span class="image left">
-            <img src="{{ $image.RelPermalink }}" alt="{{ $alt }}" style="float:left; padding-right: 20px;" />            
+            <img src="{{ $image.RelPermalink }}" alt="{{ $alt }}"
+                {{ if $circle }}
+                    style="float:left; padding-right: 20px; border-radius: 50%"
+                {{ else }}
+                    style="float:left; padding-right: 20px;"
+                {{ end }} 
+                />            
         </span>
     {{ else if eq $type "right" }}
         <span class="image right">
-            <img src="{{ $image.RelPermalink }}" alt="{{ $alt }}" style="float: right; padding-left: 20px; " />
+            <img src="{{ $image.RelPermalink }}" alt="{{ $alt }}" 
+                {{ if $circle }}
+                    style="float: right; padding-left: 20px; border-radius: 50%"
+                {{ else }}
+                    style="float: right; padding-left: 20px; "
+                {{ end }}
+                />
         </span>
     {{ else }}
         <p><span class="image center-image">
