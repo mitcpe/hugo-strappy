@@ -1,90 +1,90 @@
 {{ define "main" }}
-
-<h1 class="text-center text-dark">{{ .Title }}</h1>
-<br/>
-<!-- Check Blog -->
-{{ if or (eq .Section "post") (eq .Section "posts") (eq .Section "blog") (eq .Section "blogs") (eq .Section "review") (eq .Section "reviews") (eq .Section "news") (eq .Section "categories") (eq .Section "tags") }}
-  {{- partial "breadcrumbs.html" . }}
-
-  <div class="row text-center">
-    <div class="col">
-      {{- partial "metadata.html" . }}
-    </div>    
-  </div>
+  <h1 class="text-center text-dark">{{ .Title }}</h1>
   <br/>
-  {{ if eq .Params.posttype "review" }}
-    <div class="container-fluid row">
-      <div class="col-sm-5">
+  <!-- Check Blog -->
+  {{ if or (eq .Section "post") (eq .Section "posts") (eq .Section "blog") (eq .Section "blogs") (eq .Section "review") (eq .Section "reviews") (eq .Section "news") (eq .Section "categories") (eq .Section "tags") }}
+    {{- partial "breadcrumbs.html" . }}
+    <div class="row text-center">
+      <div class="col">
+        {{- partial "metadata.html" . }}
+      </div>    
+    </div>
+    <br/>
+    {{ if eq .Params.posttype "review" }}
+      <div class="container-fluid row">
+        <div class="col-sm-5">
+          {{ if resources.Get .Params.cover.image }}
+            {{ $image := resources.Get .Params.cover.image }}
+            {{ $image := $image.Resize "240x" }}
+            <img class="rounded img-fluid"  src="{{ $image.RelPermalink }}" 
+                                            width="{{ $image.Width }}" 
+                                            height="{{ $image.Height }}"
+                                            alt="{{ .Params.cover.alt }}"> 
+            <p class="text-center">{{ .Params.cover.caption }}</p>
+          {{ end }}      
+        </div> 
+        <div class="col-sm-7 align-self-center">
+          <div class="container py-5 bg-light">   
+            Title:&nbsp;&nbsp;<strong>{{.Params.bookTitle}}</strong><br/>
+            Author:&nbsp;&nbsp;<i>{{.Params.bookauthors}}</i><br/>
+            Date Published:&nbsp;&nbsp;{{dateFormat "2 Jan, 2006" .Params.pubdate}}<br/>
+            Genre:&nbsp;&nbsp;{{.Params.genres}}<br/>
+            Publisher:&nbsp;&nbsp;{{.Params.publishers}}<br/>
+            {{ if .Params.isbn13 }}
+              ISBN:&nbsp;&nbsp;{{.Params.isbn13}}<br/>
+            {{ end }}
+            {{ if .Params.series }}
+              Series:&nbsp;&nbsp;{{.Params.series}}&nbsp;{{.Params.seriesnum}}<br/>
+            {{ end }}
+            {{ if .Params.pages }}
+              Pages:&nbsp;&nbsp;{{.Params.pages}}<br/>
+            {{ end }} 
+            {{ if .Params.viewRating }}
+              Rating:&nbsp;&nbsp;{{ .Params.viewRating }}<br/>
+            {{ end }}
+          </div>                
+        </div>
+      </div>
+    {{ else }}        
+      <div class="text-center">
         {{ if resources.Get .Params.cover.image }}
           {{ $image := resources.Get .Params.cover.image }}
-          {{ $image := $image.Resize "240x" }}
-          <img class="rounded img-fluid" src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}"> 
-          <p class="text-center">{{ .Params.cover.caption }}</p>
-        {{ end }}      
-      </div> 
-      <div class="col-sm-7 align-self-center">
-        <div class="container py-5 bg-light">   
-          Title:&nbsp;&nbsp;<strong>{{.Params.bookTitle}}</strong><br/>
-          Author:&nbsp;&nbsp;<i>{{.Params.bookauthors}}</i><br/>
-          Date Published:&nbsp;&nbsp;{{dateFormat "2 Jan, 2006" .Params.pubdate}}<br/>
-          Genre:&nbsp;&nbsp;{{.Params.genres}}<br/>
-          Publisher:&nbsp;&nbsp;{{.Params.publishers}}<br/>
-          {{ if .Params.isbn13 }}
-            ISBN:&nbsp;&nbsp;{{.Params.isbn13}}<br/>
+          {{ $image := $image.Resize "600x" }}
+          <img class="img-fluid rounded"  src="{{ $image.RelPermalink }}" 
+                                          width="{{ $image.Width }}" 
+                                          height="{{ $image.Height }}"
+                                          alt="{{ .Params.cover.alt }}"> 
+          <p>{{ .Params.cover.caption }}</p>
+        {{ end }} 
+      </div>
+    {{ end }}
+    <br />
+    {{ .Content }}  
+    <br />
+  
+    {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
+    <div class="row">
+      <div class="col-auto">
+          Tags: {{range ($.GetTerms $tags) }}
+            <a class="badge rounded-pill bg-success nav-link" href="{{.Permalink}}">{{.Title}}</a>&nbsp;
           {{ end }}
-          {{ if .Params.series }}
-            Series:&nbsp;&nbsp;{{.Params.series}}&nbsp;{{.Params.seriesnum}}<br/>
-          {{ end }}
-          {{ if .Params.pages }}
-            Pages:&nbsp;&nbsp;{{.Params.pages}}<br/>
-          {{ end }} 
-          {{ if .Params.viewRating }}
-            Rating:&nbsp;&nbsp;{{ .Params.viewRating }}<br/>
-          {{ end }}
-        </div>                
       </div>
     </div>
-  {{ else }}
-    {{ if resources.Get .Params.cover.image }}
-      {{ $image := resources.Get .Params.cover.image }}
-      <img class="rounded w-50 mx-auto d-block"
-           src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}"
-           alt="{{ .Params.cover.alt }}"/>
-    {{ else }}
-      <img class="rounded w-50 mx-auto d-block"
-           src="{{ .Params.cover.image }}"
-           alt="{{ .Params.cover.alt }}"/>
-    {{ end }}
-    
-    <p class="text-center">{{ .Params.cover.caption }}</p>
-  {{ end }}
+    <br />
+    {{- partial "navlinks" . }}
+    <br />
+    {{- partial "socialshare" . }}
+    <br />
 
-  <br />
-  {{ .Content }}  
-  <br />
-  
-  {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
-  <div class="row">
-    <div class="col-auto">
-        Tags: {{range ($.GetTerms $tags) }}
-          <a class="badge rounded-pill bg-success nav-link" href="{{.Permalink}}">{{.Title}}</a>&nbsp;
-        {{ end }}
-    </div>
-  </div>
-  <br />
-  {{- partial "navlinks" . }}
-  <br />
-  {{- partial "socialshare" . }}
-  <br />
-  <h5>Please leave any comments below:</h5>
-  <div id="cusdis_thread"
-    data-host="https://cusdis.com"
-    data-app-id="3d83913b-83ee-4a4e-9d57-dc96767f8339"
-    data-page-id="{{ .File.UniqueID }}"
-    data-page-url="{{ .Permalink }}"
-    data-page-title="{{ .Title }}"
-> </div>
-  <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    <h5>Please leave any comments below:</h5>
+    <div id="cusdis_thread"
+      data-host="https://cusdis.com"
+      data-app-id="3d83913b-83ee-4a4e-9d57-dc96767f8339"
+      data-page-id="{{ .File.UniqueID }}"
+      data-page-url="{{ .Permalink }}"
+      data-page-title="{{ .Title }}"
+>   </div>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
   {{ else}}
     <div class="container">
       <div class="row justify-content-center">
@@ -93,5 +93,5 @@
         </div>
       </div>
     </div>
-{{ end }}
+  {{ end }}
 {{ end }}

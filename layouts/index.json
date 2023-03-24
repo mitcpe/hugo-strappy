@@ -1,0 +1,18 @@
+{
+    "items" : [
+
+    {{/* range $.Site.RegularPages - */}}
+
+    {{- range $index, $page := .Site.Pages -}}
+        {{- if or (eq $page.Type "review") (eq $page.Type "blog") -}}
+    
+            {        
+                "url" : "{{ .Permalink }}",
+                "title" : "{{ .Title }}",
+                "date" : "{{ .Date.Format "02 Jan 2006" }}",
+                "content": {{ .Content | plainify | jsonify }} },
+       
+        {{ end -}}
+    {{ end -}}
+    ]
+}

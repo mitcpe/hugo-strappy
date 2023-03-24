@@ -27,18 +27,27 @@
   
         <!-- Menu Start -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             {{ range .Site.Menus.main }}
             <li class="nav-item">
-                {{ $text := print .Name | safeHTML }}
-                <a class="nav-link" title="{{ $text }}" href="{{ .URL }}">
-                    {{ $text }}
-                </a>
+                {{- if (eq .Name "Search") -}}
+                    <a class="nav-link" href="{{ .URL }}">
+                        <i class="fas fa-search"></i>
+                    </a>                    
+                {{- else }}
+                    {{ $text := print .Name | safeHTML }}
+                    <a class="nav-link" title="{{ $text }}" href="{{ .URL }}">
+                        {{ $text }}
+                    </a>                
+                {{- end }}
+
+
+                
             </li>
             {{ end }}
         </ul>
   
-        <div class="navbar-nav d-flex flex-row justify-content-around">
+        <div class="navbar-nav d-flex flex-row justify-content-around">       
             {{ range .Site.Menus.social }}
             {{ $title := print .Title | safeHTML }}
             <a class="nav-link" title="{{ $title }}" href="{{ .URL }}">
@@ -60,7 +69,10 @@
             {{ if resources.Get .Site.Params.headerImage }}
                 {{ $image := resources.Get .Site.Params.headerImage }}
                 {{ $image := $image.Resize .Site.Params.headerImageSize }}
-                <img class="img-fluid" src="{{ $image.RelPermalink }}" width="{{ $image.Width }}" height="{{ $image.Height }}"> 
+                <img class="img-fluid"  src="{{ $image.RelPermalink }}" 
+                                        width="{{ $image.Width }}" 
+                                        height="{{ $image.Height }}"
+                                        alt="{{ .Site.Params.headerImageAlt }}"> 
             {{ end }}       
         {{ else }}
             <div class="py-5 bg-warning text-center">

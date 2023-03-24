@@ -1,0 +1,10 @@
+{{ define "main" }}
+<h1 class="text-dark">{{ .Title }}</h1>
+<div class="container content">
+    <section class="post">
+        <input type="text" id="search-input" placeholder="Type to Search..." oninput="showSearchResults()">
+        <br />
+        <ul id="list"></ul> <!-- this list is for rendering the results -->
+    </section>
+</div>
+{{end}}
