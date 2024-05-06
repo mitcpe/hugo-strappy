@@ -4,7 +4,7 @@
     {{/* range $.Site.RegularPages - */}}
 
     {{- range $index, $page := .Site.Pages -}}
-        {{- if or (eq $page.Type "review") (eq $page.Type "blog") -}}
+        {{- if or (eq $page.Type "review") (eq $page.Type "blog") (eq $page.Type "posts") -}}
     
             {        
                 "url" : "{{ .Permalink }}",
