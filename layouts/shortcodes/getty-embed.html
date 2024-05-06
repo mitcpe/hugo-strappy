@@ -1,0 +1,48 @@
+{{ $.Scratch.Set "id" (.Get "id") }} 
+{{ $.Scratch.Set "hrefno" (.Get "hrefno") }} 
+{{ $.Scratch.Set "sig" (.Get "sig") }} 
+{{ $.Scratch.Set "items" (.Get "items") }} 
+
+{{ $id := $.Scratch.Get "id" }} 
+{{ $hrefno := $.Scratch.Get "hrefno" }} 
+{{ $sig := $.Scratch.Get "sig" }} 
+{{ $items := $.Scratch.Get "items" }}
+
+<a
+  id="{{ $id }}"
+  class="gie-single"
+  href="http://www.gettyimages.com/detail/{{ $items }}"
+  target="_blank"
+  style="
+    color: #a7a7a7;
+    text-decoration: none;
+    font-weight: normal !important;
+    border: none;
+    display: inline-block;
+  "
+  >Embed from Getty Images</a
+>
+<script>
+  window.gie =
+    window.gie ||
+    function (c) {
+      (gie.q = gie.q || []).push(c);
+    };
+  gie(function () {
+    gie.widgets.load({
+      id: "{{ $id }}",
+      sig: "{{ $sig }}",
+      w: "594px",
+      h: "396px",
+      items: "{{ $items }}",
+      caption: true,
+      tld: "com",
+      is360: false,
+    });
+  });
+</script>
+<script
+  src="//embed-cdn.gettyimages.com/widgets.js"
+  charset="utf-8"
+  async
+></script>

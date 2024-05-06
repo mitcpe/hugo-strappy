@@ -1,9 +1,18 @@
 <div class="card mx-3 my-5 p-3">
-  {{ partial "widgets/recent.html" . }}
+  {{ if .Site.Params.widgets.recent }}
+    {{ partial "widgets/recent.html" . }}
+  {{ end }}
   
-  {{ partial "widgets/categories.html" . }}  
+  {{ if .Site.Params.widgets.categories }}
+    {{ partial "widgets/categories.html" . }}
+  {{ end }}  
 
-  {{ partial "widgets/tags.html" . }}
+  {{ if .Site.Params.widgets.tags }}
+    {{ partial "widgets/tags.html" . }}
+  {{ end }}
   <br />
-  {{ partial "widgets/goodreads.html" . }}
+
+  {{ if .Site.Params.widgets.goodreads }}
+    {{ partial "widgets/goodreads.html" . }}
+  {{ end }}
 </div>
