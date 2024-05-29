@@ -86,6 +86,8 @@ both of these entries in your site configuration:
 {{- $id := or (.Get "id") (printf "h-sc-%s-%d" $name $ordinal) }}
 {{- $path := .Get "path" }}
 {{- $pos := .Get "pos" }}
+{{- $imgwidth := .Get "imgwidth" }}
+{{- $imgheight := .Get "imgheight" }}
 {{- if not $path }}
   {{- errorf "The %q shortcode requires a path parameter. See %s" $name $position }}
 {{- end }}
@@ -168,8 +170,12 @@ both of these entries in your site configuration:
  {{ else }}
     <tr>
  {{ end }}
-      {{- range $row }}
+      {{- range $item := $row }}
+        {{ if or (in $item ".png") (in $item ".jpg") (in $item ".svg") }}
+          <td><img src={{ $item }} width={{ $imgwidth }} height={{ $imgheight }}></td>
+        {{ else }}
         <td>{{ . }}</td>
+        {{ end }}
       {{- end }}
     </tr>
   {{- end }}
