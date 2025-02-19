@@ -75,6 +75,9 @@
     <br />
     {{- partial "socialshare" . }}
     <br />
+    {{- if site.Params.comment }}
+      {{ partial "comments" . }}
+    {{- end }}
 
   {{ else}}
     <div class="container">
