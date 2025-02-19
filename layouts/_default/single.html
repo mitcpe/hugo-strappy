@@ -71,13 +71,14 @@
       </div>
     </div>
     <br />
+    {{- if site.Params.comments }}
+      {{ partial "comments" . }}
+    {{- end }}
+    <br />
     {{- partial "navlinks" . }}
     <br />
     {{- partial "socialshare" . }}
     <br />
-    {{- if site.Params.comment }}
-      {{ partial "comments" . }}
-    {{- end }}
 
   {{ else}}
     <div class="container">
